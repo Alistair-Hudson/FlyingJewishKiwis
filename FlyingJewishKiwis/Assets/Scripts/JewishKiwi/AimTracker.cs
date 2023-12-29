@@ -13,6 +13,8 @@ namespace FlyingJewishKiwis.JewishKiwi
         private Transform _maxRangeMarkerTransform = null;
         [SerializeField]
         private int _numberOfPoints = 100;
+        [SerializeField]
+        private float _flightTime = 5f;
 
         private UnknownComponent meshCreator = null;
         private InputForce inputForce = null;
@@ -41,13 +43,13 @@ namespace FlyingJewishKiwis.JewishKiwi
         private void Update()
         {
             Vector3 initalVelocity = inputForce.TotalVelocity * inputForce.transform.forward;
-            float timeOfFlight = ProjectileFormulae.TimeOfFlight(initalVelocity.y);
-            float timeIncrment = timeOfFlight / (pointsList.Length);
+            float timeIncrment = _flightTime / (pointsList.Length);
             for (int i = 0; i < pointsList.Length; i++)
             {
-                float xPosition = initalVelocity.x * timeIncrment * i;
+                Vector2 horizontalVelocity = new Vector2(initalVelocity.x, initalVelocity.z);
+                float xPosition = 0;//
                 float yPosition = ProjectileFormulae.VerticalDisplacement(initalVelocity.y, timeIncrment * i);
-                float zPosition = initalVelocity.z * timeIncrment * i;
+                float zPosition = Mathf.Abs(horizontalVelocity.magnitude * timeIncrment * i);//Ensures the mesh is always in the forward direction of the kiwi
                 pointsList[i] = new Vector3(xPosition, yPosition, zPosition);
             }
             meshCreator.UnknownMethod(pointsList);

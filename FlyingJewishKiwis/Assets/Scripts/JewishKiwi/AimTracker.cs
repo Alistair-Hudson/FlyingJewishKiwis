@@ -10,20 +10,18 @@ namespace FlyingJewishKiwis.JewishKiwi
     public class AimTracker : MonoBehaviour
     {
         [SerializeField]
-        private Transform _maxRangeMarkerTransform = null;
-        [SerializeField]
         private int _numberOfPoints = 100;
         [SerializeField]
         private float _flightTime = 5f;
 
         private UnknownComponent meshCreator = null;
-        private InputForce inputForce = null;
         private Vector3[] pointsList;
+
+        public InputForce InputForce = null;
 
         private void Awake()
         {
             meshCreator = GetComponent<UnknownComponent>();
-            inputForce = GetComponentInParent<InputForce>();
             pointsList = new Vector3[_numberOfPoints];
         }
 
@@ -31,7 +29,6 @@ namespace FlyingJewishKiwis.JewishKiwi
         {
             GetComponentInParent<InputReader>().TriggerPulled += delegate { gameObject.SetActive(true); };
             GetComponentInParent<InputReader>().TriggerRelease += delegate { gameObject.SetActive(false); };
-            gameObject.SetActive(false);
         }
 
         private void OnDestroy()
@@ -42,18 +39,22 @@ namespace FlyingJewishKiwis.JewishKiwi
 
         private void Update()
         {
-            Vector3 initalVelocity = inputForce.TotalVelocity * inputForce.transform.forward;
+            if (!InputForce)
+            {
+                return;
+            }
+            Vector3 initalVelocity = InputForce.TotalVelocity * InputForce.transform.forward;
             float timeIncrment = _flightTime / (pointsList.Length);
             for (int i = 0; i < pointsList.Length; i++)
             {
                 Vector2 horizontalVelocity = new Vector2(initalVelocity.x, initalVelocity.z);
-                float xPosition = 0;//
+                float xPosition = Mathf.Abs(horizontalVelocity.x * timeIncrment * i);
                 float yPosition = ProjectileFormulae.VerticalDisplacement(initalVelocity.y, timeIncrment * i);
-                float zPosition = Mathf.Abs(horizontalVelocity.magnitude * timeIncrment * i);//Ensures the mesh is always in the forward direction of the kiwi
+                float zPosition = Mathf.Abs(horizontalVelocity.y * timeIncrment * i);
                 pointsList[i] = new Vector3(xPosition, yPosition, zPosition);
             }
             meshCreator.UnknownMethod(pointsList);
-            _maxRangeMarkerTransform.position = pointsList[pointsList.Length - 1];
+
         }
     }
 }

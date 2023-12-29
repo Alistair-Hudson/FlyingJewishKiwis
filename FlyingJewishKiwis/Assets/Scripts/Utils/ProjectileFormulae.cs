@@ -61,4 +61,21 @@ public static class ProjectileFormulae
         range = range / gravity;
         return range;
     }
+
+    public static float AngleFromRange(float range, float initalVelocity)
+    {
+        if (range == 0 || initalVelocity == 0) //Prevent infinte check
+        {
+            return 0;
+        }
+        float angle = range * gravity;
+        angle = angle / (initalVelocity * initalVelocity);
+        if (angle > 1 || angle < -1) //Sine only exists between -1 and 1
+        {
+            return 0;
+        }
+        angle = Mathf.Asin(angle);
+        angle = angle / 2;
+        return angle;
+    }
 }

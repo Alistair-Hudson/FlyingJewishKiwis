@@ -20,9 +20,6 @@ namespace FlyingJewishKiwis.Controls
             input = new Input();
             input.AimAndShoot.SetCallbacks(this);
             input.AimAndShoot.Enable();
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         private void OnDestroy()

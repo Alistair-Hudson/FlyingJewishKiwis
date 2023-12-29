@@ -344,7 +344,7 @@ MonoBehaviour:
   _flameParticles2: {fileID: 3239401990746942928}
   _explossionSound: {fileID: 8300000, guid: 6ef1ebe336b045046ad19db77ba98fb8, type: 3}
   _onDestroySound: {fileID: 8300000, guid: c5bbb8fa39584064cafc8720ef64a74a, type: 3}
-  _velocityAddedPerSecond: 1
+  _velocityAddedPerSecond: 10
   _lifeTime: 5
   _fovIncrease: 0.1
 --- !u!114 &776925423360964203

@@ -24,6 +24,7 @@ namespace FlyingJewishKiwis.Background
 
         private void Start()
         {
+            KiwisUsed = 0;
             kiwiPrefab = _kiwiPrefab;
             spawnTransform = transform;
             aimTracker = GetComponentInChildren<AimTracker>();

@@ -16,6 +16,8 @@ namespace FlyingJewishKiwis.Background
         private static Transform spawnTransform = null;
         private static AimTracker aimTracker = null;
 
+        public static int KiwisUsed { get; private set; } = 0;
+
         private void Start()
         {
             kiwiPrefab = _kiwiPrefab;
@@ -29,6 +31,7 @@ namespace FlyingJewishKiwis.Background
             GameObject newKiwi = Instantiate(kiwiPrefab, spawnTransform);
             aimTracker.InputForce = newKiwi.GetComponent<InputForce>();
             Camera.main.GetComponent<KiwiTracker>().Kiwi = newKiwi.transform;
+            KiwisUsed++;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace FlyingJewishKiwis.JewishKiwi
     {
         [SerializeField]
         private float _velocityAddedPerSecond = 1;
+        [SerializeField]
+        private float _lifeTime = 5;
 
         private InputReader inputReader = null;
         private Rigidbody myRigidbody = null;
@@ -47,6 +49,13 @@ namespace FlyingJewishKiwis.JewishKiwi
             myRigidbody.velocity = transform.forward * TotalVelocity;
             TotalVelocity = 0;
             GetComponent<DirectionControl>().enabled = false;
+            StartCoroutine(RocketCountDown());
+        }
+
+        private IEnumerator RocketCountDown()
+        {
+            yield return new WaitForSeconds(_lifeTime);
+            Destroy(gameObject);
         }
     }
 }

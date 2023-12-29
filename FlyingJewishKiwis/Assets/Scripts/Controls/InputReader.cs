@@ -14,6 +14,7 @@ namespace FlyingJewishKiwis.Controls
 
         public event Action TriggerPulled;
         public event Action TriggerRelease;
+        public static event Action QuitLevel;
 
         private void Start()
         {
@@ -44,6 +45,14 @@ namespace FlyingJewishKiwis.Controls
         public void OnAim(InputAction.CallbackContext context)
         {
             
+        }
+
+        public void OnExitLevel(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                QuitLevel?.Invoke();
+            }
         }
     }
 }

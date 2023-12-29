@@ -46,6 +46,15 @@ namespace FlyingJewishKiwis.Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ExitLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8b57fe5-739f-471a-9bc2-04b2a07254d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ namespace FlyingJewishKiwis.Controls
                     ""processors"": """",
                     ""groups"": ""AimAndShoot"",
                     ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20b30ab2-bf6e-4384-86c4-a034404fa2b0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""AimAndShoot"",
+                    ""action"": ""ExitLevel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -97,6 +117,7 @@ namespace FlyingJewishKiwis.Controls
             m_AimAndShoot = asset.FindActionMap("AimAndShoot", throwIfNotFound: true);
             m_AimAndShoot_Shoot = m_AimAndShoot.FindAction("Shoot", throwIfNotFound: true);
             m_AimAndShoot_Aim = m_AimAndShoot.FindAction("Aim", throwIfNotFound: true);
+            m_AimAndShoot_ExitLevel = m_AimAndShoot.FindAction("ExitLevel", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -160,12 +181,14 @@ namespace FlyingJewishKiwis.Controls
         private List<IAimAndShootActions> m_AimAndShootActionsCallbackInterfaces = new List<IAimAndShootActions>();
         private readonly InputAction m_AimAndShoot_Shoot;
         private readonly InputAction m_AimAndShoot_Aim;
+        private readonly InputAction m_AimAndShoot_ExitLevel;
         public struct AimAndShootActions
         {
             private @Input m_Wrapper;
             public AimAndShootActions(@Input wrapper) { m_Wrapper = wrapper; }
             public InputAction @Shoot => m_Wrapper.m_AimAndShoot_Shoot;
             public InputAction @Aim => m_Wrapper.m_AimAndShoot_Aim;
+            public InputAction @ExitLevel => m_Wrapper.m_AimAndShoot_ExitLevel;
             public InputActionMap Get() { return m_Wrapper.m_AimAndShoot; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -181,6 +204,9 @@ namespace FlyingJewishKiwis.Controls
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @ExitLevel.started += instance.OnExitLevel;
+                @ExitLevel.performed += instance.OnExitLevel;
+                @ExitLevel.canceled += instance.OnExitLevel;
             }
 
             private void UnregisterCallbacks(IAimAndShootActions instance)
@@ -191,6 +217,9 @@ namespace FlyingJewishKiwis.Controls
                 @Aim.started -= instance.OnAim;
                 @Aim.performed -= instance.OnAim;
                 @Aim.canceled -= instance.OnAim;
+                @ExitLevel.started -= instance.OnExitLevel;
+                @ExitLevel.performed -= instance.OnExitLevel;
+                @ExitLevel.canceled -= instance.OnExitLevel;
             }
 
             public void RemoveCallbacks(IAimAndShootActions instance)
@@ -221,6 +250,7 @@ namespace FlyingJewishKiwis.Controls
         {
             void OnShoot(InputAction.CallbackContext context);
             void OnAim(InputAction.CallbackContext context);
+            void OnExitLevel(InputAction.CallbackContext context);
         }
     }
 }

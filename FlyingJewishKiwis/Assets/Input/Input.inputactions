@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ExitLevel",
+                    "type": "Button",
+                    "id": "a8b57fe5-739f-471a-9bc2-04b2a07254d7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "AimAndShoot",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20b30ab2-bf6e-4384-86c4-a034404fa2b0",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "AimAndShoot",
+                    "action": "ExitLevel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

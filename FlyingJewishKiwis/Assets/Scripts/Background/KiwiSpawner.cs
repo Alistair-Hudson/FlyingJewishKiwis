@@ -10,11 +10,15 @@ namespace FlyingJewishKiwis.Background
     {
         [SerializeField]
         private GameObject _kiwiPrefab = null;
+        [SerializeField]
+        private AudioClip _spawnSFX = null;
 
 
         private static GameObject kiwiPrefab = null;
         private static Transform spawnTransform = null;
         private static AimTracker aimTracker = null;
+        private static AudioSource audioSource = null;
+        private static AudioClip spawnSFX = null;
 
         public static int KiwisUsed { get; private set; } = 0;
 
@@ -23,6 +27,8 @@ namespace FlyingJewishKiwis.Background
             kiwiPrefab = _kiwiPrefab;
             spawnTransform = transform;
             aimTracker = GetComponentInChildren<AimTracker>();
+            audioSource = GetComponent<AudioSource>();
+            spawnSFX = _spawnSFX;
             SpawnKiwi();
         }
 
@@ -30,6 +36,7 @@ namespace FlyingJewishKiwis.Background
         {
             GameObject newKiwi = Instantiate(kiwiPrefab, spawnTransform);
             aimTracker.InputForce = newKiwi.GetComponent<InputForce>();
+            audioSource.PlayOneShot(spawnSFX);
             Camera.main.GetComponent<KiwiTracker>().Kiwi = newKiwi.transform;
             KiwisUsed++;
         }

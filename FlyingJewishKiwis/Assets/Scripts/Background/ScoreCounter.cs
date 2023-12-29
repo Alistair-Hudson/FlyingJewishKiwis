@@ -17,11 +17,13 @@ namespace FlyingJewishKiwis.Background
         private static int numberOfTargetsRemianing = 0;
         private static Image winMenu = null;
         private static TMP_Text kiwisUsedDisplay = null;
+        private static AudioSource audioSource = null;
 
         private void Awake()
         {
             winMenu = _winMenu;
             kiwisUsedDisplay = _kiwisUsedDisplay;
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -34,9 +36,15 @@ namespace FlyingJewishKiwis.Background
             numberOfTargetsRemianing--;
             if (numberOfTargetsRemianing <= 0)
             {
-                winMenu.enabled = true;
-                kiwisUsedDisplay.text = $"You used {KiwiSpawner.KiwisUsed} kiwis";
+                OnGameOver();
             }
+        }
+
+        private static void OnGameOver()
+        {
+            winMenu.gameObject.SetActive(true);
+            kiwisUsedDisplay.text = $"You used {KiwiSpawner.KiwisUsed} kiwis";
+            audioSource.Play();
         }
     }
 }

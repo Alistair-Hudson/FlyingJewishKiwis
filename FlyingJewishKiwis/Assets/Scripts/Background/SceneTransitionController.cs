@@ -1,3 +1,4 @@
+using FlyingJewishKiwis.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,16 @@ namespace FlyingJewishKiwis.Background
 {
     public class SceneTransitionController : MonoBehaviour
     {
+        private void Start()
+        {
+            InputReader.QuitLevel += OnQuitLevelHandler;
+        }
+
+        private void OnDestroy()
+        {
+            InputReader.QuitLevel -= OnQuitLevelHandler;
+        }
+
         public void ReplayLevel()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -26,5 +37,11 @@ namespace FlyingJewishKiwis.Background
         {
             Application.Quit();
         }
+
+        private void OnQuitLevelHandler()
+        {
+            LoadMainMenu();
+        }
+
     }
 }

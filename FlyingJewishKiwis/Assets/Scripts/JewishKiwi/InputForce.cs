@@ -11,6 +11,14 @@ namespace FlyingJewishKiwis.JewishKiwi
     public class InputForce : MonoBehaviour
     {
         [SerializeField]
+        private GameObject _flameParticles1 = null;
+        [SerializeField]
+        private GameObject _flameParticles2 = null;
+        [SerializeField]
+        private AudioClip _explossionSound = null;
+        [SerializeField]
+        private AudioClip _onDestroySound = null;
+        [SerializeField]
         private float _velocityAddedPerSecond = 1;
         [SerializeField]
         private float _lifeTime = 5;
@@ -46,6 +54,8 @@ namespace FlyingJewishKiwis.JewishKiwi
             {
                 TotalVelocity += _velocityAddedPerSecond * Time.deltaTime;
                 Camera.main.fieldOfView += _fovIncrease;
+                _flameParticles1.SetActive(true);
+                _flameParticles2.SetActive(true);
             }
         }
 
@@ -57,12 +67,14 @@ namespace FlyingJewishKiwis.JewishKiwi
             Camera.main.fieldOfView = initialFOV;
             GetComponent<DirectionControl>().enabled = false;
             StartCoroutine(RocketCountDown());
+            GetComponent<AudioSource>().PlayOneShot(_explossionSound);
         }
 
         private IEnumerator RocketCountDown()
         {
-            yield return new WaitForSeconds(_lifeTime);
-            Destroy(gameObject);
+            yield return new WaitForSeconds(_lifeTime - 1);
+            GetComponent<AudioSource>().PlayOneShot(_onDestroySound);
+            Destroy(gameObject, 1);
         }
     }
 }

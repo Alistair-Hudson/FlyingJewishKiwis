@@ -11,7 +11,7 @@ namespace FlyingJewishKiwis.DevTools
 
         public Vector3 Position { get => transform.position; }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             if (NextWayPoint)
             {

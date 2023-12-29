@@ -25,18 +25,6 @@ namespace FlyingJewishKiwis.JewishKiwi
             pointsList = new Vector3[_numberOfPoints];
         }
 
-        private void Start()
-        {
-            GetComponentInParent<InputReader>().TriggerPulled += delegate { gameObject.SetActive(true); };
-            GetComponentInParent<InputReader>().TriggerRelease += delegate { gameObject.SetActive(false); };
-        }
-
-        private void OnDestroy()
-        {
-            GetComponentInParent<InputReader>().TriggerPulled -= delegate { gameObject.SetActive(true); };
-            GetComponentInParent<InputReader>().TriggerRelease -= delegate { gameObject.SetActive(false); };
-        }
-
         private void Update()
         {
             if (!InputForce)

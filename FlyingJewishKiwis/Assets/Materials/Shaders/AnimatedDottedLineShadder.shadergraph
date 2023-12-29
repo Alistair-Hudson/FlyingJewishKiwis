@@ -83,7 +83,7 @@
                 "m_Node": {
                     "m_Id": "e7d1e934912b4a1bb02bb6da4382a48b"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 2
             }
         },
         {
@@ -718,8 +718,8 @@
     "m_ShaderOutputName": "Tiling",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": -2.0,
-        "y": 1.0
+        "x": 5.0,
+        "y": -10.0
     },
     "m_DefaultValue": {
         "x": 0.0,

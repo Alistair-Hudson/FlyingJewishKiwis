@@ -48,9 +48,9 @@ namespace FlyingJewishKiwis.JewishKiwi
             for (int i = 0; i < pointsList.Length; i++)
             {
                 Vector2 horizontalVelocity = new Vector2(initalVelocity.x, initalVelocity.z);
-                float xPosition = Mathf.Abs(horizontalVelocity.x * timeIncrment * i);
+                float xPosition = horizontalVelocity.x * timeIncrment * i;
                 float yPosition = ProjectileFormulae.VerticalDisplacement(initalVelocity.y, timeIncrment * i);
-                float zPosition = Mathf.Abs(horizontalVelocity.y * timeIncrment * i);
+                float zPosition = horizontalVelocity.y * timeIncrment * i;
                 pointsList[i] = new Vector3(xPosition, yPosition, zPosition);
             }
             meshCreator.UnknownMethod(pointsList);

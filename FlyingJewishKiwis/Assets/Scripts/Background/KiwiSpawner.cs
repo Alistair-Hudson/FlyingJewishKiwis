@@ -28,6 +28,7 @@ namespace FlyingJewishKiwis.Background
         {
             GameObject newKiwi = Instantiate(kiwiPrefab, spawnTransform);
             aimTracker.InputForce = newKiwi.GetComponent<InputForce>();
+            Camera.main.GetComponent<KiwiTracker>().Kiwi = newKiwi.transform;
         }
     }
 }
